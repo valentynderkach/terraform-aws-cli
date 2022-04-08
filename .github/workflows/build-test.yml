@@ -89,7 +89,7 @@ jobs:
         run: echo "IMAGE_TAG=${BRANCH}_terraform-${{ matrix.tf_version }}_awscli-${{ matrix.awscli_version }}" >> $GITHUB_ENV
 
       - name: Download image artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}
 
