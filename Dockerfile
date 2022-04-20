@@ -49,6 +49,8 @@ RUN apt-get install -y --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_MAJOR_VERSION} 1
+# Fuck that bloody version idiotic mess!!!
+RUN ln -fs /usr/bin/python${PYTHON_MAJOR_VERSION} /usr/bin/python3
 WORKDIR /workspace
 COPY --from=terraform /workspace/terraform /usr/local/bin/terraform
 COPY --from=aws-cli /usr/local/bin/aws* /usr/local/bin/
@@ -61,7 +63,8 @@ RUN groupadd --gid 1001 nonroot \
   # user needs a home folder to store aws credentials
   && useradd --gid nonroot --create-home --uid 1001 nonroot \
   && chown nonroot:nonroot /workspace \
-  && /sbin/adduser nonroot sudo
+  && usermod -aG sudo nonroot \
+  && echo 'nonroot ALL=(ALL) NOPASSWD:ALL' | sudo EDITOR='tee -a' visudo
 USER nonroot
 
 CMD ["bash"]
