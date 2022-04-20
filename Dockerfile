@@ -45,6 +45,7 @@ RUN apt-get install -y --no-install-recommends \
     ca-certificates=20210119\
     git=1:2.30.2-1 \
     jq=1.6-2.1 \
+    curl vim net-tools
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_MAJOR_VERSION} 1
@@ -54,7 +55,7 @@ COPY --from=aws-cli /usr/local/bin/aws* /usr/local/bin/
 COPY --from=aws-cli /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages
 COPY --from=aws-cli /usr/lib/python3/dist-packages /usr/lib/python3/dist-packages
 
-RUN apt-get update && apt-get install -y curl vim net-tools
+# RUN apt-get update && apt-get install -y curl vim net-tools
 
 RUN groupadd --gid 1001 nonroot \
   # user needs a home folder to store aws credentials
