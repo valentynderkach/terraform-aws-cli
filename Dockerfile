@@ -45,7 +45,7 @@ RUN apt-get install -y --no-install-recommends \
     ca-certificates=20210119\
     git=1:2.30.2-1 \
     jq=1.6-2.1 \
-    curl vim net-tools
+    curl vim net-tools \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_MAJOR_VERSION} 1
