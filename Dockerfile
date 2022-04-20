@@ -45,7 +45,7 @@ RUN apt-get install -y --no-install-recommends \
     ca-certificates=20210119\
     git=1:2.30.2-1 \
     jq=1.6-2.1 \
-    curl vim net-tools \
+    curl vim net-tools sudo \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_MAJOR_VERSION} 1
@@ -60,7 +60,8 @@ COPY --from=aws-cli /usr/lib/python3/dist-packages /usr/lib/python3/dist-package
 RUN groupadd --gid 1001 nonroot \
   # user needs a home folder to store aws credentials
   && useradd --gid nonroot --create-home --uid 1001 nonroot \
-  && chown nonroot:nonroot /workspace
+  && chown nonroot:nonroot /workspace \
+  && /sbin/adduser nonroot sudo
 USER nonroot
 
 CMD ["bash"]
