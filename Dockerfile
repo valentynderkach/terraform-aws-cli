@@ -1,6 +1,3 @@
-# docker build -t terraform-aws-cli:tf-0.12.31 --build-arg TERRAFORM_VERSION=0.12.31 .
-# docker run -it --rm --name aws-accountor-prod -v ~/workspace:/workspace terraform-aws-cli:tf-0.12.31 bash
-
 ARG TERRAFORM_VERSION=*
 ARG DEBIAN_VERSION=buster
 
